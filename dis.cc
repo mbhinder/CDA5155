@@ -11,12 +11,15 @@
 #include "dis.hh"
 using namespace std;
 
-int Dis::disassemble(std::string filename, std::string outputfile) {
+int Dis::disassemble(std::string filename, std::string outputfile)
+{
 	this->outputfile = outputfile;
 	int address = 596;
 	std::fstream file(filename.c_str(), ios::in | ios::binary);
-	if (file.is_open()) {
-		while (file.good()) {
+	if (file.is_open())
+   	{
+		while (file.good())
+	   	{
 			char * mem_block = new char[4];
 			file.read(mem_block, 4);
 			if (file.eof())
@@ -28,20 +31,19 @@ int Dis::disassemble(std::string filename, std::string outputfile) {
 			bitset<8> b2((int) mem_block[1]);
 			bitset<8> b3((int) mem_block[2]);
 			bitset<8> b4((int) mem_block[3]);
-			//std::cout<<b1<<b2<<b3<<b4<<endl;
 			std::string binary_code;
 			//get the string representation of each bitset
 			binary_code   = b1.to_string<char, char_traits<char> , allocator<char> > ();
 			binary_code  += b2.to_string<char, char_traits<char> , allocator<char> > ();
 			binary_code  += b3.to_string<char, char_traits<char> , allocator<char> > ();
 			binary_code  += b4.to_string<char, char_traits<char> , allocator<char> > ();
-			//std::cout << b1.to_ulong() << endl;
 			print_code(binary_code,address);
 			address += 4;
-			//dont want to be leaking memory
+			//free up the memory block
 			delete [] mem_block;
 		}
-	} else {
+	} else
+   	{
 		std::cout << "Unable to open file";
 		return 0;
 	}
@@ -189,7 +191,7 @@ int Dis::print_code(string binary_code, int address)
 		string s1 = add_bitset.to_string<char, char_traits<char> , allocator<char> > ();
 		string s2  = b.to_string<char, char_traits<char> , allocator<char> > ();
 		string s3 = s1.substr(0,4);
-	        string s4 = s3 + s2;
+	    string s4 = s3 + s2;
 		bitset<32> final_address(s4);
 		fout<<"#"<<final_address.to_ulong()<<endl;
 	}
