@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=-c -g -Wall
 LDFLAGS= -g
-SOURCES=dis.cc main.cc
+SOURCES=dis.cc sim.cc main.cc 
 OBJECTS=$(SOURCES:.cc=.o)
 	EXECUTABLE=MIPSsim
 

@@ -6,6 +6,7 @@
  */
 #include <iostream>
 #include "dis.hh"
+#include "sim.hh"
 #include <stdio.h>
 using namespace std;
 
@@ -21,14 +22,15 @@ int main(int argc, char *argv[])
 	string operation = argv[3];
 	if ( operation == "dis" )
 	{
-		remove(outputfile.c_str());
+		remove(outputfile.c_str()); 
 		Dis d;
 		d.disassemble(inputfile, outputfile);
 	}
 	else if ( operation == "sim" )
 	{
-		cout<<"Not implemented yet"<<endl;
-		return 0;
+		remove(outputfile.c_str()); //delete existing file
+		Sim s;
+		s.disassemble(inputfile);
 	}
 	else
 	{
